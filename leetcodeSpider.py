@@ -98,8 +98,8 @@ def mainpage():
 
 if __name__ == '__main__':
 	if(len(sys.argv)==1):
-		login_data['login'] = "quitz@foxmail.com"
-		login_data['password'] = "51323332"
+		login_data['login'] = "your username"
+		login_data['password'] = "your password"
 	else:
 		password = getpass.getpass()
 		login_data['login'] = sys.argv[1]
