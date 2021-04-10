@@ -40,15 +40,10 @@ def generatefile(questionMap):
 		questionName = k.replace(' ','-')
 		questionUrl = v
 		f = open('leetcode/'+questionName+'.' + code_lang,'w')
-		#print "line41" + str(f)
-		#
 		questionSubUrl = questionUrl + "submissions/"
-		#questionSubUrl = questionSubUrl.replace(' ','-')
-		#print questionSubUrl
 		res = s.get(url=questionSubUrl,headers=headers_base)
 		page = BeautifulSoup(res.content,"html.parser")
 		ref = page.find(class_="status-accepted")
-		#print re
 		subUrl = 'https://leetcode.com' + ref['href']
 		one = s.get(url=subUrl,headers=headers_base)
 		html = one.content
@@ -56,13 +51,9 @@ def generatefile(questionMap):
 		
 		c = re.compile(reg)
 		cc = re.findall(c,html)
-		#content = cc[0].encode('utf-8')
 		content = cc[0]
-		#print content
-		#print "line57\n"
 		
 		newcontent = uniToString(content)
-		#print "line62" + newcontent
 		f.write(newcontent)
 		f.close()
 		print questionName + " download successfully"
@@ -77,24 +68,17 @@ def uniToString(content):
 	for key in toCpp.keys():
 		content = content.replace(key,toCpp[key])
 
-	#print "line74" + content +'\n'
 	return content
 
 def login():
     url = "https://leetcode.com/accounts/login/"
     res = s.get(url=url,headers=headers_base)
-    #print res.cookies
     login_data['csrfmiddlewaretoken']=res.cookies['csrftoken']
     print login_data
     res = s.post(url,headers = headers_base,data=login_data)
-    #print res.status_code
-    #print res.cookies
     return res.content
 def mainpage():
     login()
-    # res = s.get(url=url,headers=headers_base,cookies=login())
-    # print res.text
-    # write2file("hist.html",res.text)
 
 if __name__ == '__main__':
 	if(len(sys.argv)==1):
